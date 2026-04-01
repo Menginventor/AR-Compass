@@ -1,0 +1,227 @@
+
+body {
+  margin: 0;
+  overflow: hidden;
+  font-family: sans-serif;
+
+}
+
+/* Camera full screen */
+#camera {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+    background: #444;
+}
+
+/* UI overlay */
+.ui {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  color: white;
+  z-index: 10;
+}
+
+button {
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+/* Marker */
+#marker {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  font-size: 40px;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+}
+/* Marker wrapper (position only) */
+#markerWrapper {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 5;
+}
+
+/* Marker container */
+#marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translate(-50%, -50%);
+  color: white;
+}
+
+/* Pin icon */
+.pin {
+  font-size: 36px;
+}
+
+/* Distance label */
+#markerLabel {
+  font-size: 24px;
+  margin-top: -6px;
+  padding: 2px 6px;
+  background: rgba(0,0,0,0.6);
+  border-radius: 6px;
+  white-space: pre-line;   /* 👈 IMPORTANT for \n */
+  text-align: center;
+}
+
+/* FOV popup */
+#settingsPanel {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,0.9);
+  padding: 20px;
+  border-radius: 10px;
+  color: white;
+  z-index: 20;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Open button */
+#openFovBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 20;
+  font-size: 20px;
+  padding: 10px;
+  border-radius: 50%;
+}
+
+/* Marker */
+#markerWrapper {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 5;
+}
+
+#marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translate(-50%, -50%);
+  color: white;
+}
+
+.pin {
+  font-size: 36px;
+}
+
+
+
+#horizon {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 200vw;              /* long line */
+  height: 2px;
+  background: yellow;
+
+  transform: translate(-50%, -50%);
+  transform-origin: center;
+
+  z-index: 4;
+  pointer-events: none;
+}
+
+.info {
+  background: rgba(0, 0, 0, 0.2);  /* transparent dark */
+  color: white;                    /* high contrast text */
+  padding: 10px;
+  border-radius: 10px;
+
+  backdrop-filter: blur(6px);      /* 🔥 nice glass effect (optional) */
+  -webkit-backdrop-filter: blur(6px);
+
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.fov-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.fov-row label {
+  width: 120px;   /* 🔥 fixed width = perfect alignment */
+}
+
+.fov-row input {
+  width: 80px;
+}
+
+#crosshair {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  pointer-events: none;
+}
+
+/* horizontal */
+#crosshair::before {
+  content: "";
+  position: absolute;
+
+  top: 50%;
+  left: 0;
+
+  width: 100%;
+  height: 2px;
+
+  transform: translateY(-50%);
+
+  background: linear-gradient(
+    to right,
+    white 0%,
+    white 40%,
+    transparent 40%,
+    transparent 60%,
+    white 60%,
+    white 100%
+  );
+}
+
+/* vertical */
+#crosshair::after {
+  content: "";
+  position: absolute;
+
+  left: 50%;
+  top: 0;
+
+  width: 2px;
+  height: 100%;
+
+  transform: translateX(-50%);
+
+  background: linear-gradient(
+    to bottom,
+    white 0%,
+    white 40%,
+    transparent 40%,
+    transparent 60%,
+    white 60%,
+    white 100%
+  );
+}
