@@ -5,112 +5,134 @@
   <title>AR Marker URL Builder</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      margin: 0;
-      font-family: sans-serif;
-      background: linear-gradient(135deg, #1e1e1e, #2c2c2c);
-      color: white;
-    }
+<style>
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
 
-    /* Center layout */
-    .container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 20px;
-    }
+  body {
+    margin: 0;
+    font-family: sans-serif;
+    background: linear-gradient(135deg, #1e1e1e, #2c2c2c);
+    color: white;
+  }
 
-    /* Card */
-    .card {
-      width: 100%;
-      max-width: 420px;
-      background: rgba(40, 40, 40, 0.95);
-      padding: 20px;
-      border-radius: 16px;
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
 
-      box-shadow:
-        0 10px 30px rgba(0,0,0,0.5),
-        inset 0 0 10px rgba(255,255,255,0.05);
+  .card {
+    width: 100%;
+    max-width: 420px;
+    background: rgba(40, 40, 40, 0.95);
+    padding: 20px;
+    border-radius: 16px;
 
-      backdrop-filter: blur(10px);
-    }
+    box-shadow:
+      0 10px 30px rgba(0,0,0,0.5),
+      inset 0 0 10px rgba(255,255,255,0.05);
 
-    .card h2 {
-      margin-top: 0;
-      text-align: center;
-    }
+    backdrop-filter: blur(10px);
+  }
 
-    label {
-      font-size: 14px;
-      color: #ccc;
-    }
+  .card h2 {
+    margin-top: 0;
+    text-align: center;
+  }
 
-    input {
-      width: 100%;
-      padding: 10px;
-      margin: 5px 0 15px;
-      font-size: 16px;
+  label {
+    font-size: 14px;
+    color: #ccc;
+  }
 
-      border-radius: 8px;
-      border: none;
+  input {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 15px;
+    font-size: 16px;
 
-      background: #444;
-      color: white;
-    }
+    border-radius: 8px;
+    border: none;
 
-    input::placeholder {
-      color: #bbb;
-    }
+    background: #444;
+    color: white;
+  }
 
-    input:focus {
-      outline: 2px solid #4CAF50;
-      background: #555;
-    }
+  input::placeholder {
+    color: #bbb;
+  }
 
-    button {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 10px;
+  input:focus {
+    outline: 2px solid #4CAF50;
+    background: #555;
+  }
 
-      font-size: 16px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-    }
+  button {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
 
-    #generateBtn {
-      background: #4CAF50;
-      color: white;
-    }
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
 
-    #copyBtn {
-      background: #2196F3;
-      color: white;
-    }
+  button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
 
-    #output {
-      background: #111;
-      padding: 10px;
-      border-radius: 8px;
-      word-break: break-all;
-      margin-top: 10px;
-      font-size: 14px;
-    }
+  #generateBtn {
+    background: #4CAF50;
+    color: white;
+  }
 
-    #openLink {
-      display: block;
-      text-align: center;
-      margin-top: 10px;
-      color: #4CAF50;
-      text-decoration: none;
-    }
+  #copyBtn {
+    background: #2196F3;
+    color: white;
+  }
 
-    #openLink:hover {
-      text-decoration: underline;
-    }
-  </style>
+#output {
+  background: #111;
+  padding: 10px;
+  border-radius: 8px;
+  word-break: break-all;
+  margin-top: 10px;
+  margin-bottom: 10px;  /* 👈 เพิ่มตรงนี้ */
+  font-size: 14px;
+}
+#openLink {
+  display: block;
+  width: 100%;
+  padding: 12px;
+
+  text-align: center;
+  margin-top: 10px;
+
+  border-radius: 10px;
+  background: #4CAF50;
+  color: white;
+
+  text-decoration: none;
+  font-size: 16px;
+}
+
+#openLink.disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+  #openLink:hover {
+    text-decoration: underline;
+  }
+</style>
 </head>
 
 <body>
@@ -118,10 +140,10 @@
 <div class="container">
   <div class="card">
 
-    <h2>📍 AR Marker Builder</h2>
+    <h2>AR Marker Builder</h2>
 
     <label>Name</label>
-    <input id="name" placeholder="e.g. My Target">
+    <input id="name" placeholder="e.g. HS2AC">
 
     <label>Latitude</label>
     <input id="lat" placeholder="e.g. 13.189914">
@@ -129,21 +151,26 @@
     <label>Longitude</label>
     <input id="lon" placeholder="e.g. 100.950628">
 
-    <label>Altitude (meters,optional)</label>
+    <label>Altitude (meters, optional)</label>
     <input id="alt" placeholder="e.g. 10">
 
+    <!-- 1. Generate -->
     <button id="generateBtn">Generate URL</button>
-    <button id="copyBtn">Copy URL</button>
 
+    <!-- 2. URL display -->
     <div id="output">URL will appear here</div>
 
-    <a id="openLink" href="#" target="_blank">Open AR</a>
+    <!-- 3. Copy -->
+    <button id="copyBtn" disabled>Copy URL</button>
+
+    <!-- 4. Open -->
+    <a id="openLink" class="disabled" href="#" target="_blank">Open AR</a>
 
   </div>
 </div>
 
 <script>
-  const baseURL = "https://menginventor.github.io/Mobile-Web_GPS-AHRS/ar.html";
+  const baseURL = "https://menginventor.github.io/AR-Compass";
 
   const nameInput = document.getElementById("name");
   const latInput = document.getElementById("lat");
@@ -152,6 +179,7 @@
 
   const output = document.getElementById("output");
   const openLink = document.getElementById("openLink");
+  const copyBtn = document.getElementById("copyBtn");
 
   document.getElementById("generateBtn").onclick = () => {
 
@@ -165,28 +193,33 @@
       return;
     }
 
-    let url = `${baseURL}?lat=${lat}&lon=${lon}`;
+    const params = new URLSearchParams();
+    params.set("lat", lat);
+    params.set("lon", lon);
 
-    if (name) {
-      url += `&name=${name}`;
-    }
+    if (name) params.set("name", name);
+    if (alt) params.set("alt", alt);
 
-    if (alt) {
-      url += `&alt=${alt}`;
-    }
+    const url = `${baseURL}?${params.toString()}`;
 
+    // show URL
     output.textContent = url;
+
+    // enable Copy
+    copyBtn.disabled = false;
+
+    // enable Open
     openLink.href = url;
+    openLink.classList.remove("disabled");
   };
 
-  document.getElementById("copyBtn").onclick = () => {
-    if (!output.textContent || output.textContent === "URL will appear here") {
-      alert("Generate URL first");
-      return;
+  copyBtn.onclick = async () => {
+    try {
+      await navigator.clipboard.writeText(output.textContent);
+      alert("Copied");
+    } catch {
+      alert("Copy failed");
     }
-
-    navigator.clipboard.writeText(output.textContent);
-    alert("Copied!");
   };
 </script>
 
